@@ -181,6 +181,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     String data1 = jsonEncode(userData);
 
+      PreferenceServices.setData(key: PreferenceStrings.userKey, value: data1);
 
     if (!context.mounted) return;
     snackBarCommon(text: "DATA REGISTER", context: context);

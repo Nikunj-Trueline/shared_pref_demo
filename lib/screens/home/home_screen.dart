@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_pref_demo/common/colors.dart';
 import 'package:shared_pref_demo/common/snackbar_common.dart';
+import 'package:shared_pref_demo/model/user_model.dart';
 import 'package:shared_pref_demo/screens/home/components/textstyle_common.dart';
 import 'package:shared_pref_demo/screens/signin/signin_screen.dart';
 import 'package:shared_pref_demo/service/prefrence_string.dart';
@@ -18,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
+  List<UserData> userData1 = [];
 
   @override
   void initState() {
@@ -26,7 +30,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void getAllData() {
+    String userDataString =  PreferenceServices.getStringData(key: PreferenceStrings.userKey);
 
+
+    if(userDataString!="")
+      {
+        userData1 =   userDataFromJson(userDataString);
+      }
   }
 
   @override
@@ -49,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 1000,
                   child: ListView.builder(
-                    itemCount: 10,
+                    itemCount: userData1.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(
@@ -68,16 +78,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                     side: const BorderSide(
                                         color: Colors.black87, width: 2),
                                     borderRadius: BorderRadius.circular(10)),
-                                title: const Text("FNAME : ",
+                                title:  Text("FNAME : ${userData1[index].fName}",
                                     style: cardTextStyle),
-                                subtitle: const Text(
-                                    "LNAME :",
+                                subtitle:  Text(
+                                    "LNAME : ${userData1[index].lName}",
                                     style: cardTextStyle),
-                                leading: const CircleAvatar(
+                                leading:  CircleAvatar(
                                   radius: 33,
                                   backgroundColor: Colors.deepPurple,
                                   child: Text(
-                                   "",
+                                   "${userData1[index].fName![0].toUpperCase()}",
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w600,
@@ -92,9 +102,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       color: Colors.black,
                                     )),
                               ),
-                              const Padding(
+                               Padding(
                                 padding: EdgeInsets.only(left: 50),
-                                child: Text("EMAIL : ",
+                                child: Text("EMAIL : ${userData1[index].email}",
                                     style: cardTextStyle),
                               )
                             ],

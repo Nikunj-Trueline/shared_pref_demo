@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:shared_pref_demo/common/snackbar_common.dart';
 import 'package:shared_pref_demo/screens/home/home_screen.dart';
